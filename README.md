@@ -8,6 +8,8 @@ Personal portfolio website for **Johanna Marie**, a Marketing Specialist / Conte
 
 The site is published as a work in progress. Some résumé, project, contact, portrait, and testimonial content remains as editable placeholder content until Johanna supplies the final details.
 
+A restricted, form-based content editor is planned but is not active yet. Until it is implemented and tested, visible content remains in `app/page.tsx`.
+
 ## Technology
 
 - Next.js and React
@@ -31,3 +33,13 @@ npm run check
 ```
 
 Every update pushed to `main` is checked and published automatically.
+
+## Documentation
+
+- [Documentation index](docs/README.md)
+- [Project context](docs/PROJECT.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Content model](docs/CONTENT-MODEL.md)
+- [Technical maintenance](docs/MAINTENANCE.md)
+- [Deployment](docs/DEPLOYMENT.md)
+- [Decision record](docs/DECISIONS.md)
