@@ -16,11 +16,15 @@ The main color variables are at the top of `app/globals.css`. Update those value
 
 ## Run locally
 
-1. Install Node.js 20 or newer.
+1. Install Node.js 22.13 or newer.
 2. Open this folder in a terminal.
-3. Run `npm install`.
+3. Run `npm ci`.
 4. Run `npm run dev`.
 5. Open the local address shown in the terminal.
+
+## Publishing
+
+Updates pushed to the `main` branch are checked and published automatically by GitHub Pages.
 
 ## Asset notes
 
