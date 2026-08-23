@@ -4,7 +4,17 @@ import siteContent from "@/content/site.json";
 type HeadingContent = {
   beforeEmphasis: string;
   emphasis: string;
-  afterEmphasis: string;
+  afterEmphasis?: string;
+};
+
+type ProjectContent = {
+  category: string;
+  title: string;
+  summary: string;
+  impact: string;
+  image?: string;
+  imageAlt?: string;
+  caseStudyUrl?: string;
 };
 
 function ContentHeading({ content }: { content: HeadingContent }) {
@@ -12,15 +22,15 @@ function ContentHeading({ content }: { content: HeadingContent }) {
     <>
       <span className="heading-copy">{content.beforeEmphasis}</span>
       <em>{content.emphasis}</em>
-      {content.afterEmphasis}
+      {content.afterEmphasis ?? ""}
     </>
   );
 }
 
 const projects = [
-  { number: "01", tone: "rose", content: siteContent.work.project1 },
-  { number: "02", tone: "sage", content: siteContent.work.project2 },
-  { number: "03", tone: "peach", content: siteContent.work.project3 },
+  { number: "01", tone: "rose", content: siteContent.work.project1 as ProjectContent },
+  { number: "02", tone: "sage", content: siteContent.work.project2 as ProjectContent },
+  { number: "03", tone: "peach", content: siteContent.work.project3 as ProjectContent },
 ] as const;
 
 const capabilities = [
@@ -39,9 +49,16 @@ const capabilityStripItems = [
 
 const capabilityStripText = [...capabilityStripItems, ...capabilityStripItems].join("　✦　");
 const placeholderEmail = "your@email.com";
+const heroVisual = siteContent.hero.visual as typeof siteContent.hero.visual & { image?: string; alt?: string };
+const aboutContent = siteContent.about as typeof siteContent.about & { portrait?: { image?: string; alt?: string } };
+const portrait = aboutContent.portrait ?? {};
+const resumeContent = siteContent.resume as typeof siteContent.resume & { file?: string };
+const contactContent = siteContent.contact as typeof siteContent.contact & { email?: string; linkedInUrl?: string };
+const contactEmail = contactContent.email ?? "";
+const linkedInUrl = contactContent.linkedInUrl ?? "";
 
 export default function Home() {
-  const hasPublicEmail = siteContent.contact.email !== "" && siteContent.contact.email !== placeholderEmail;
+  const hasPublicEmail = contactEmail !== "" && contactEmail !== placeholderEmail;
   const testimonialRole = [siteContent.testimonial.personRole, siteContent.testimonial.personCompany]
     .filter(Boolean)
     .join(" · ");
@@ -71,12 +88,12 @@ export default function Home() {
             <a className="text-link" href="#contact">{siteContent.hero.secondaryActionLabel}</a>
           </div>
         </div>
-        <div className={`hero-art${siteContent.hero.visual.image ? " has-image" : ""}`}>
-          {siteContent.hero.visual.image ? (
+        <div className={`hero-art${heroVisual.image ? " has-image" : ""}`}>
+          {heroVisual.image ? (
             <Image
               className="content-image"
-              src={siteContent.hero.visual.image}
-              alt={siteContent.hero.visual.alt}
+              src={heroVisual.image}
+              alt={heroVisual.alt ?? ""}
               fill
               loading="eager"
               sizes="(max-width: 850px) 94vw, 40vw"
@@ -85,7 +102,7 @@ export default function Home() {
             <>
               <span className="spark">✦</span>
               <p>WORDS<br />WITH<br /><i>purpose.</i></p>
-              <small>{siteContent.hero.visual.placeholderMessage}</small>
+              <small>{heroVisual.placeholderMessage}</small>
             </>
           )}
         </div>
@@ -110,7 +127,7 @@ export default function Home() {
                   <Image
                     className="content-image"
                     src={content.image}
-                    alt={content.imageAlt}
+                    alt={content.imageAlt ?? ""}
                     fill
                     sizes="(max-width: 850px) 100vw, 45vw"
                   />
@@ -156,12 +173,12 @@ export default function Home() {
       </section>
 
       <section className="about shell section" id="about">
-        <div className={`portrait${siteContent.about.portrait.image ? " has-image" : ""}`}>
-          {siteContent.about.portrait.image ? (
+        <div className={`portrait${portrait.image ? " has-image" : ""}`}>
+          {portrait.image ? (
             <Image
               className="content-image"
-              src={siteContent.about.portrait.image}
-              alt={siteContent.about.portrait.alt}
+              src={portrait.image}
+              alt={portrait.alt ?? ""}
               fill
               sizes="(max-width: 850px) 90vw, 36vw"
             />
@@ -194,8 +211,8 @@ export default function Home() {
           <h2>{siteContent.resume.heading}</h2>
           <p>{siteContent.resume.introduction}</p>
         </div>
-        {siteContent.resume.file ? (
-          <a className="button light" href={siteContent.resume.file} target="_blank" rel="noreferrer">
+        {resumeContent.file ? (
+          <a className="button light" href={resumeContent.file} target="_blank" rel="noreferrer">
             {siteContent.resume.actionLabel}
           </a>
         ) : (
@@ -208,12 +225,12 @@ export default function Home() {
         <h2><ContentHeading content={siteContent.contact.heading} /></h2>
         <p>{siteContent.contact.introduction}</p>
         {hasPublicEmail ? (
-          <a className="button primary" href={`mailto:${siteContent.contact.email}`}>
-            {siteContent.contact.email} ↗
+          <a className="button primary" href={`mailto:${contactEmail}`}>
+            {contactEmail} ↗
           </a>
         ) : (
           <span className="button primary unavailable-link" aria-disabled="true">
-            {siteContent.contact.email || placeholderEmail} ↗
+            {contactEmail || placeholderEmail} ↗
           </span>
         )}
       </section>
@@ -225,12 +242,12 @@ export default function Home() {
         </a>
         <p>© {new Date().getFullYear()} Johanna Marie. All rights reserved.</p>
         <div>
-          {siteContent.contact.linkedInUrl ? (
-            <a href={siteContent.contact.linkedInUrl} target="_blank" rel="noreferrer">LinkedIn</a>
+          {linkedInUrl ? (
+            <a href={linkedInUrl} target="_blank" rel="noreferrer">LinkedIn</a>
           ) : (
             <span className="footer-unavailable" aria-disabled="true">LinkedIn</span>
           )}
-          <a href={hasPublicEmail ? `mailto:${siteContent.contact.email}` : "#contact"}>Email</a>
+          <a href={hasPublicEmail ? `mailto:${contactEmail}` : "#contact"}>Email</a>
           <a href="#top">Back to top ↑</a>
         </div>
       </footer>

@@ -11,14 +11,15 @@ function isObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-function validateObject(value, path, expectedKeys) {
+function validateObject(value, path, requiredKeys, optionalKeys = []) {
   if (!isObject(value)) {
     errors.push(`${path} must be an object.`);
     return {};
   }
 
+  const expectedKeys = [...requiredKeys, ...optionalKeys];
   const actualKeys = Object.keys(value);
-  for (const key of expectedKeys) {
+  for (const key of requiredKeys) {
     if (!Object.hasOwn(value, key)) {
       errors.push(`${path}.${key} is missing.`);
     }
@@ -34,6 +35,7 @@ function validateObject(value, path, expectedKeys) {
 }
 
 function validateText(value, path, { min = 1, max = 500, optional = false } = {}) {
+  if (optional && (value === undefined || value === null)) return "";
   if (typeof value !== "string") {
     errors.push(`${path} must be plain text.`);
     return "";
@@ -47,7 +49,7 @@ function validateText(value, path, { min = 1, max = 500, optional = false } = {}
 }
 
 function validateHeading(value, path, beforeMax = 180) {
-  const heading = validateObject(value, path, ["beforeEmphasis", "emphasis", "afterEmphasis"]);
+  const heading = validateObject(value, path, ["beforeEmphasis", "emphasis"], ["afterEmphasis"]);
   validateText(heading.beforeEmphasis, `${path}.beforeEmphasis`, { max: beforeMax });
   validateText(heading.emphasis, `${path}.emphasis`, { max: 100 });
   validateText(heading.afterEmphasis, `${path}.afterEmphasis`, { max: 100, optional: true });
@@ -81,7 +83,8 @@ function validateImagePath(value, path) {
 }
 
 function validateImage(value, path, imageKey = "image", altKey = "alt") {
-  const image = validateObject(value, path, [imageKey, altKey]);
+  if (value === undefined || value === null) return;
+  const image = validateObject(value, path, [], [imageKey, altKey]);
   const imagePath = validateText(image[imageKey], `${path}.${imageKey}`, { max: 300, optional: true });
   const alt = validateText(image[altKey], `${path}.${altKey}`, { max: 180, optional: true });
   validateImagePath(imagePath, `${path}.${imageKey}`);
@@ -96,6 +99,7 @@ function validateProject(value, path) {
     "title",
     "summary",
     "impact",
+  ], [
     "image",
     "imageAlt",
     "caseStudyUrl",
@@ -156,7 +160,7 @@ validateHeading(hero.heading, "site.hero.heading");
 validateText(hero.introduction, "site.hero.introduction", { min: 20, max: 600 });
 validateText(hero.primaryActionLabel, "site.hero.primaryActionLabel", { max: 80 });
 validateText(hero.secondaryActionLabel, "site.hero.secondaryActionLabel", { max: 80 });
-const heroVisual = validateObject(hero.visual, "site.hero.visual", ["image", "alt", "placeholderMessage"]);
+const heroVisual = validateObject(hero.visual, "site.hero.visual", ["placeholderMessage"], ["image", "alt"]);
 const heroImagePath = validateText(heroVisual.image, "site.hero.visual.image", { max: 300, optional: true });
 const heroImageAlt = validateText(heroVisual.alt, "site.hero.visual.alt", { max: 180, optional: true });
 validateImagePath(heroImagePath, "site.hero.visual.image");
@@ -206,9 +210,8 @@ const about = validateObject(root.about, "site.about", [
   "heading",
   "paragraph1",
   "paragraph2",
-  "portrait",
   "resumeActionLabel",
-]);
+], ["portrait"]);
 validateText(about.eyebrow, "site.about.eyebrow", { max: 80 });
 validateHeading(about.heading, "site.about.heading");
 validateText(about.paragraph1, "site.about.paragraph1", { min: 10, max: 900 });
@@ -229,7 +232,7 @@ validateText(testimonial.personName, "site.testimonial.personName", { max: 120 }
 validateText(testimonial.personRole, "site.testimonial.personRole", { max: 120 });
 validateText(testimonial.personCompany, "site.testimonial.personCompany", { max: 120 });
 
-const resume = validateObject(root.resume, "site.resume", ["eyebrow", "heading", "introduction", "actionLabel", "file"]);
+const resume = validateObject(root.resume, "site.resume", ["eyebrow", "heading", "introduction", "actionLabel"], ["file"]);
 validateText(resume.eyebrow, "site.resume.eyebrow", { max: 80 });
 validateText(resume.heading, "site.resume.heading", { max: 140 });
 validateText(resume.introduction, "site.resume.introduction", { min: 10, max: 400 });
@@ -245,9 +248,7 @@ const contact = validateObject(root.contact, "site.contact", [
   "eyebrow",
   "heading",
   "introduction",
-  "email",
-  "linkedInUrl",
-]);
+], ["email", "linkedInUrl"]);
 validateText(contact.eyebrow, "site.contact.eyebrow", { max: 80 });
 validateHeading(contact.heading, "site.contact.heading");
 validateText(contact.introduction, "site.contact.introduction", { min: 10, max: 400 });
