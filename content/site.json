@@ -1,21 +1,18 @@
 {
   "profile": {
     "professionalTitle": "Marketing Specialist / Content Writer",
-    "siteDescription": "Johanna Marie is a marketing specialist and content writer creating thoughtful, audience-focused work."
+    "siteDescription": "Johanna Marie is a marketing specialist and content writer creating thoughtful, audience-focused work. Editor save test."
   },
   "hero": {
     "eyebrow": "Thoughtful words. Purposeful marketing.",
     "heading": {
       "beforeEmphasis": "I turn ideas into content that ",
-      "emphasis": "connects.",
-      "afterEmphasis": ""
+      "emphasis": "connects."
     },
     "introduction": "I'm Johanna Marie, a marketing specialist and content writer focused on creating clear, engaging work that helps brands communicate with intention.",
     "primaryActionLabel": "Explore my work ↓",
     "secondaryActionLabel": "Let's connect ↗",
     "visual": {
-      "image": "",
-      "alt": "",
       "placeholderMessage": "Replace this panel with your portrait, signature visual, or featured campaign."
     }
   },
@@ -29,44 +26,33 @@
     "eyebrow": "Selected work",
     "heading": {
       "beforeEmphasis": "Ideas made ",
-      "emphasis": "meaningful.",
-      "afterEmphasis": ""
+      "emphasis": "meaningful."
     },
     "introduction": "A curated selection showing how I think, write, collaborate, and contribute to results.",
     "project1": {
       "category": "Content Strategy · [Industry]",
       "title": "[Add a results-led title for your strongest project]",
       "summary": "Briefly explain the challenge, what you created, and why your approach mattered.",
-      "impact": "[Add a measurable result or meaningful outcome]",
-      "image": "",
-      "imageAlt": "",
-      "caseStudyUrl": ""
+      "impact": "[Add a measurable result or meaningful outcome]"
     },
     "project2": {
       "category": "Campaign Marketing · [Industry]",
       "title": "[Add a project that shows strategic thinking]",
       "summary": "Describe your role, the audience, and the idea that guided the work.",
-      "impact": "[Add reach, engagement, leads, or another result]",
-      "image": "",
-      "imageAlt": "",
-      "caseStudyUrl": ""
+      "impact": "[Add reach, engagement, leads, or another result]"
     },
     "project3": {
       "category": "Copywriting · [Format]",
       "title": "[Add a project that demonstrates your writing voice]",
       "summary": "Share the communication goal and how your writing made the message clearer or more persuasive.",
-      "impact": "[Add the outcome, feedback, or lesson learned]",
-      "image": "",
-      "imageAlt": "",
-      "caseStudyUrl": ""
+      "impact": "[Add the outcome, feedback, or lesson learned]"
     }
   },
   "capabilities": {
     "eyebrow": "What I bring",
     "heading": {
       "beforeEmphasis": "A blend of strategy\nand ",
-      "emphasis": "storytelling.",
-      "afterEmphasis": ""
+      "emphasis": "storytelling."
     },
     "introduction": "Editable starting points—keep only the capabilities your work and experience support.",
     "item1": {
@@ -95,10 +81,6 @@
     },
     "paragraph1": "[Add a concise introduction to your background, the work you enjoy, and the perspective you bring to a team. Let this sound like you—not a résumé summary.]",
     "paragraph2": "[Add one personal detail, working principle, or professional interest that makes you memorable.]",
-    "portrait": {
-      "image": "",
-      "alt": ""
-    },
     "resumeActionLabel": "More about my experience ↗"
   },
   "testimonial": {
@@ -112,18 +94,15 @@
     "eyebrow": "Experience at a glance",
     "heading": "Want the full story?",
     "introduction": "Add your downloadable résumé here when it is ready for public sharing.",
-    "actionLabel": "View résumé ↗",
-    "file": ""
+    "actionLabel": "View résumé ↗"
   },
   "contact": {
     "eyebrow": "Let's connect",
     "heading": {
       "beforeEmphasis": "Have an opportunity in mind?\n",
-      "emphasis": "I'd love to hear about it.",
-      "afterEmphasis": ""
+      "emphasis": "I'd love to hear about it."
     },
     "introduction": "Whether you're hiring, building a team, or simply want to say hello—my inbox is open.",
-    "email": "your@email.com",
-    "linkedInUrl": ""
+    "email": "your@email.com"
   }
 }
