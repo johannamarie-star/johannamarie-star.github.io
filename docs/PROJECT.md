@@ -83,11 +83,14 @@ No stock photos, client logos, real project thumbnails, or portrait photographs 
 
 ## Main source locations
 
-- `app/page.tsx` — current visible content and homepage structure
+- `content/site.json` — editable public content and media references
+- `.pages.yml` — restricted Pages CMS form and upload configuration
+- `scripts/validate-content.mjs` — content shape, link, media-path, and referenced-file validation
+- `app/page.tsx` — homepage structure and rendering
 - `app/globals.css` — visual system and responsive layout
 - `app/layout.tsx` — metadata and social-sharing configuration
 - `app/robots.ts` and `app/sitemap.ts` — public indexing metadata
 - `public/` — public static assets
 - `.github/workflows/pages.yml` — validation, build, and GitHub Pages publishing
 
-After the editor implementation, editable values will move to `content/site.json` and editor-managed assets to `public/uploads/`. `app/` will continue to own presentation and structure.
+Editable values are stored in `content/site.json`, and editor-managed assets are restricted to `public/uploads/`. `app/` continues to own presentation and structure. The hosted editor still requires Johanna's repository authorization before routine editing begins.

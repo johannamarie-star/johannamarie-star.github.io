@@ -24,14 +24,14 @@ This document records decisions that should influence future work. It is not a c
 
 ## D004 — Separate content from presentation
 
-- **Status:** Accepted; implementation pending
+- **Status:** Implemented
 - **Decision:** Move approved editable values into `content/site.json`. Keep components, layout, style, section order, and behavior in `app/`.
 - **Reason:** Johanna needs safe small edits while structural changes remain a maintainer responsibility.
 - **Consequence:** Presentation redesigns should preserve semantic content keys when practical. New content concepts require deliberate contract changes.
 
 ## D005 — Use hosted Pages CMS as the editing surface
 
-- **Status:** Accepted; implementation pending
+- **Status:** Repository integration implemented; hosted authorization pending
 - **Decision:** Use the hosted Pages CMS interface as a form-based layer over the GitHub repository. Do not build or embed a custom editor application.
 - **Reason:** A custom editor would require additional hosting, authentication, security, and maintenance. Pages CMS provides structured file and media editing while GitHub remains the content source of truth.
 - **Consequence:** The Pages CMS GitHub App must be restricted to Johanna's portfolio repository. The public site must not depend on Pages CMS at runtime.
@@ -45,13 +45,13 @@ This document records decisions that should influence future work. It is not a c
 
 ## D007 — Keep version one intentionally small
 
-- **Status:** Accepted; implementation pending
+- **Status:** Implemented
 - **Decision:** Version one supports constrained text, public links, images, accessible image descriptions, and a résumé PDF within the existing page structure. It excludes an embedded admin route, custom authentication, database, drag-and-drop building, arbitrary code editing, role systems, approval queues, and live visual editing.
 - **Reason:** This is the minimum useful editor for independent routine updates and avoids turning a portfolio into a software product.
 
 ## D008 — Direct publishing with validation and recovery
 
-- **Status:** Accepted; implementation pending
+- **Status:** Implemented
 - **Decision:** An editor save records a GitHub change and triggers the existing `main` branch deployment. Content validation and the static build must pass before publishing; Git history provides rollback.
 - **Reason:** Requiring maintainer approval for every text edit would defeat Johanna's independence. Validation and previous-deployment retention limit technical risk.
 - **Consequence:** Version one will not add a draft or approval workflow unless real use demonstrates a need.
@@ -62,3 +62,10 @@ This document records decisions that should influence future work. It is not a c
 - **Decision:** Keep non-negotiable instructions and routing in `AGENTS.md`; store product, architecture, content-model, deployment, maintenance, and decision detail under `docs/`.
 - **Reason:** A short entry point is easier to keep authoritative, while focused documents reduce duplication and stale mixed-state handoffs.
 - **Consequence:** Significant changes must update their relevant document in the same commit.
+
+## D010 — Every verified change has a recoverable commit
+
+- **Status:** Accepted
+- **Decision:** Agents and maintainers create a focused commit after each coherent, verified change and include only files belonging to that task. Pages CMS creates a Git commit automatically whenever Johanna saves content or media.
+- **Reason:** The portfolio will evolve incrementally, so small meaningful commits provide understandable recovery points without requiring Johanna to learn Git.
+- **Consequence:** Do not commit every keystroke, read-only investigation, known failure, unfinished experiment, generated output, secret, or unrelated pre-existing change. Push to `main` only when the verified change is intended to be shared or published.

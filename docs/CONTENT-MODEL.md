@@ -2,7 +2,7 @@
 
 ## Status and purpose
 
-This is the accepted draft for the version-one editor contract. The corresponding `content/site.json` file and Pages CMS configuration do not exist yet. Exact field names may be adjusted during implementation only when the change improves clarity or matches the current component structure; any adjustment must be reflected here in the same change.
+This is the implemented version-one editor contract. `content/site.json`, `.pages.yml`, and `scripts/validate-content.mjs` must remain synchronized with this document.
 
 The contract separates content Johanna may safely edit from presentation and structure maintained in `app/`.
 
@@ -17,11 +17,11 @@ The contract separates content Johanna may safely edit from presentation and str
 7. Require useful alternative text whenever a meaningful content image is present.
 8. Store uploaded public paths under `/uploads/`.
 
-## Proposed top-level groups
+## Top-level groups
 
 | Group | Purpose | Initial editor exposure |
 | --- | --- | --- |
-| `profile` | Professional title and public identity context | Professional title only; brand name remains fixed |
+| `profile` | Professional title and public search/sharing description | Editable; brand name remains fixed |
 | `hero` | Opening statement, introduction, calls to action, and optional portrait/visual | Editable text and image fields |
 | `capabilityStrip` | Short labels in the scrolling strip below the hero | Four editable labels in a fixed structure |
 | `work` | Selected-work section introduction and three fixed project records | Editable copy, links, images, and image descriptions |
@@ -33,11 +33,12 @@ The contract separates content Johanna may safely edit from presentation and str
 
 Navigation, section order, anchor identifiers, layout classes, decorative project tones, card numbering, colors, typography, responsive behavior, build settings, and deployment configuration remain outside the content model.
 
-## Proposed semantic keys
+## Semantic keys
 
 ### `profile`
 
 - `professionalTitle`
+- `siteDescription`
 
 The public brand name is deliberately not editable through the CMS. Components and metadata must continue to render **Johanna Marie** consistently.
 
@@ -46,9 +47,10 @@ The public brand name is deliberately not editable through the CMS. Components a
 - `eyebrow`
 - `heading.beforeEmphasis`
 - `heading.emphasis`
+- `heading.afterEmphasis`
 - `introduction`
-- `primaryAction.label`
-- `secondaryAction.label`
+- `primaryActionLabel`
+- `secondaryActionLabel`
 - `visual.image`
 - `visual.alt`
 - `visual.placeholderMessage`
@@ -57,7 +59,10 @@ Action destinations remain structural anchors in version one, so the editor cann
 
 ### `capabilityStrip`
 
-- `items` — exactly four short plain-text labels
+- `item1`
+- `item2`
+- `item3`
+- `item4`
 
 The page may repeat these labels visually to create a continuous scrolling effect. Repetition and animation remain presentation behavior rather than duplicated content.
 
@@ -66,8 +71,9 @@ The page may repeat these labels visually to create a continuous scrolling effec
 - `eyebrow`
 - `heading.beforeEmphasis`
 - `heading.emphasis`
+- `heading.afterEmphasis`
 - `introduction`
-- `projects` — exactly three records, each containing:
+- `project1`, `project2`, and `project3` — fixed records, each containing:
   - `category`
   - `title`
   - `summary`
@@ -83,8 +89,9 @@ Project identifiers, display numbers, and decorative tones remain structural. Ca
 - `eyebrow`
 - `heading.beforeEmphasis`
 - `heading.emphasis`
+- `heading.afterEmphasis`
 - `introduction`
-- `items` — exactly four records, each containing:
+- `item1`, `item2`, `item3`, and `item4` — fixed records, each containing:
   - `title`
   - `description`
 
@@ -95,7 +102,9 @@ Display numbers and card order remain structural in version one.
 - `eyebrow`
 - `heading.beforeEmphasis`
 - `heading.emphasis`
-- `paragraphs` — exactly two plain-text paragraphs in version one
+- `heading.afterEmphasis`
+- `paragraph1`
+- `paragraph2`
 - `portrait.image`
 - `portrait.alt`
 - `resumeActionLabel`
@@ -125,16 +134,16 @@ Only a PDF intentionally approved for public sharing may be uploaded. The compon
 - `eyebrow`
 - `heading.beforeEmphasis`
 - `heading.emphasis`
+- `heading.afterEmphasis`
 - `introduction`
 - `email`
-- `emailActionLabel`
 - `linkedInUrl`
 
-Do not publish a guessed email address or social profile. Empty values must produce a clear unavailable state rather than `#` links or fake contact information.
+The contact button label is derived from `email`, so Johanna changes the address only once. Do not publish a guessed email address or social profile. Empty or placeholder values produce a clear unavailable state rather than `#` links or fake contact information.
 
 ## Media contract
 
-Version one will use separate constrained upload choices:
+Version one uses separate constrained upload choices:
 
 - Images: `jpg`, `jpeg`, `png`, or `webp` under `public/uploads/images/`
 - Résumé: `pdf` under `public/uploads/documents/`
@@ -145,15 +154,16 @@ All uploaded files are public once committed. The editor guide must warn Johanna
 
 ## Validation requirements
 
-Before deployment, validation should confirm at minimum:
+Before deployment, validation confirms:
 
 - The content file is valid JSON with the expected top-level shape.
 - Required text values are present and within practical length limits.
-- Projects contain exactly three records and capabilities exactly four in version one.
+- The fixed `project1` through `project3` and `item1` through `item4` slots are present; the editor cannot add, delete, or reorder them.
 - URLs use an allowed public protocol and contact email has a valid shape when provided.
 - Asset paths are empty or contained under `/uploads/` as appropriate.
 - A non-empty image path has non-empty alternative text.
 - The résumé path is empty or references a PDF in the approved documents folder.
+- Every referenced image or résumé file exists in the approved public upload folder.
 - Unexpected executable or raw HTML fields are not part of the schema.
 
 Validation protects deployment integrity; it does not verify whether a professional claim is true. Human confirmation remains required for portfolio facts.

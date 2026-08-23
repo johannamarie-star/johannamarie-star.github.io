@@ -2,21 +2,21 @@
 
 ## Status
 
-The public website and GitHub Pages deployment are implemented. The content-editor architecture described below is accepted but not implemented yet.
+The public website, file-based content contract, Pages CMS configuration, validation, and GitHub Pages deployment are implemented. Authorization of the hosted Pages CMS GitHub App and final verification of Johanna's editor interface remain pending.
 
 ## Current system
 
 ```text
-app/page.tsx + app/globals.css + public assets
+content/site.json + app/ + public assets
                     |
                     v
-             Next.js static build
+          Content validation + static build
                     |
                     v
-          GitHub Pages deployment
+             GitHub Pages deployment
                     |
                     v
-     https://johannamarie-star.github.io/
+        https://johannamarie-star.github.io/
 ```
 
 The site has no server runtime, application database, private API, or authentication route. Next.js produces static files, and GitHub Actions publishes them to GitHub Pages.
@@ -61,10 +61,10 @@ Xavier may maintain the technical code when requested without owning the content
 
 ## Content and presentation contract
 
-- `content/site.json` will contain version-one editable values only.
+- `content/site.json` contains version-one editable values only.
 - `app/` will decide where and how those values are rendered.
-- `.pages.yml` will expose friendly form controls mapped to the same stable keys.
-- `public/uploads/` will contain only public assets intentionally uploaded for the portfolio.
+- `.pages.yml` exposes friendly form controls mapped to the same stable keys.
+- `public/uploads/` contains only public assets intentionally uploaded for the portfolio.
 - Structural identifiers needed by the layout may be stored in code or hidden/read-only fields; Johanna will not need to manage them.
 
 Presentation can be redesigned without changing Johanna's editor when the redesign continues to consume the same content keys. A genuinely new content concept requires an intentional update to the component, content contract, editor configuration, validation, and documentation.
@@ -111,13 +111,9 @@ The previously deployed website remains available during a build. If validation 
 - If a content edit is undesirable, Git history provides a recovery path.
 - If the framework changes later, retaining the content contract allows the editor configuration and stored content to remain useful.
 
-## Implementation sequence
+## Remaining activation sequence
 
-1. Confirm the exact version-one content contract against the current page.
-2. Add `content/site.json` without changing visible output.
-3. Refactor `app/page.tsx` to render the content file while keeping structure and styling stable.
-4. Add content validation and run it before the production build.
-5. Add `.pages.yml` with constrained fields and media paths.
-6. Install and authorize Pages CMS only for Johanna's portfolio repository.
-7. Test text, image, résumé, deployment, failure, and recovery flows.
-8. Write `docs/EDITOR-GUIDE.md` from the verified interface and update the other documents to implemented status.
+1. Publish the repository-side editor integration and confirm GitHub Pages succeeds.
+2. Install and authorize Pages CMS only for Johanna's portfolio repository.
+3. Verify the real form, text fields, image picker, résumé picker, repository scope, and save messaging.
+4. Write `docs/EDITOR-GUIDE.md` from the verified interface and mark activation complete.

@@ -1,0 +1,477 @@
+media:
+  - name: images
+    label: Portfolio images
+    input: public/uploads/images
+    output: /uploads/images
+    rename: safe
+    extensions: [jpg, jpeg, png, webp]
+    categories: [image]
+    commit:
+      templates:
+        create: "media: add {filename} through editor"
+        update: "media: update {filename} through editor"
+        delete: "media: remove {filename} through editor"
+        rename: "media: rename {oldFilename} to {newFilename} through editor"
+  - name: documents
+    label: Public résumé files
+    input: public/uploads/documents
+    output: /uploads/documents
+    rename: safe
+    extensions: [pdf]
+    categories: [document]
+    commit:
+      templates:
+        create: "media: add {filename} through editor"
+        update: "media: update {filename} through editor"
+        delete: "media: remove {filename} through editor"
+        rename: "media: rename {oldFilename} to {newFilename} through editor"
+
+components:
+  heading:
+    type: object
+    fields:
+      - name: beforeEmphasis
+        label: Text before the pink italic words
+        type: text
+        required: true
+        description: A line break is allowed where the design already uses one.
+        options:
+          maxlength: 180
+      - name: emphasis
+        label: Pink italic words
+        type: string
+        required: true
+        options:
+          maxlength: 100
+      - name: afterEmphasis
+        label: Text after the pink italic words
+        type: string
+        description: Leave empty when the heading ends with the pink words.
+        options:
+          maxlength: 100
+  project:
+    type: object
+    fields:
+      - name: category
+        label: Project type and industry or format
+        type: string
+        required: true
+        options:
+          maxlength: 100
+      - name: title
+        label: Project title
+        type: string
+        required: true
+        options:
+          maxlength: 180
+      - name: summary
+        label: Project summary
+        type: text
+        required: true
+        description: Explain the challenge, your contribution, and why the approach mattered.
+        options:
+          maxlength: 600
+      - name: impact
+        label: Impact or outcome
+        type: text
+        required: true
+        description: Use only results or feedback that Johanna can verify.
+        options:
+          maxlength: 280
+      - name: image
+        label: Project image
+        type: image
+        description: Optional. Upload only work that is approved for public display.
+        options:
+          media: images
+          extensions: [jpg, jpeg, png, webp]
+          rename: safe
+      - name: imageAlt
+        label: Project image description
+        type: string
+        description: Required when an image is selected. Describe what the image shows.
+        options:
+          maxlength: 180
+      - name: caseStudyUrl
+        label: Case-study link
+        type: string
+        description: Optional. Use a complete public address beginning with https://.
+        options:
+          maxlength: 500
+  capability:
+    type: object
+    fields:
+      - name: title
+        label: Capability name
+        type: string
+        required: true
+        options:
+          maxlength: 80
+      - name: description
+        label: Capability description
+        type: text
+        required: true
+        description: Keep only capabilities supported by Johanna's experience.
+        options:
+          maxlength: 320
+
+settings:
+  hide: true
+  content:
+    merge: true
+  commit:
+    identity: app
+    templates:
+      create: "content: create {name} through editor"
+      update: "content: update portfolio through editor"
+      delete: "content: remove {name} through editor"
+      rename: "content: rename {oldFilename} to {newFilename} through editor"
+
+content:
+  - name: portfolio
+    label: Portfolio content — Save publishes
+    type: file
+    path: content/site.json
+    format: json
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: profile
+        label: Professional profile
+        type: object
+        required: true
+        fields:
+          - name: professionalTitle
+            label: Professional title
+            type: string
+            required: true
+            description: Saving creates a recoverable GitHub version and publishes after automated checks pass.
+            options:
+              maxlength: 100
+          - name: siteDescription
+            label: Search and sharing description
+            type: text
+            required: true
+            description: A short summary used by search engines and when the website is shared.
+            options:
+              minlength: 20
+              maxlength: 240
+      - name: hero
+        label: Hero section
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Small introduction line
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: heading
+            component: heading
+            label: Main headline
+            required: true
+          - name: introduction
+            label: Introduction
+            type: text
+            required: true
+            options:
+              minlength: 20
+              maxlength: 600
+          - name: primaryActionLabel
+            label: Work button text
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: secondaryActionLabel
+            label: Contact link text
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: visual
+            label: Hero image or placeholder
+            type: object
+            required: true
+            fields:
+              - name: image
+                label: Hero image
+                type: image
+                description: Optional. A selected image replaces the current decorative placeholder.
+                options:
+                  media: images
+                  extensions: [jpg, jpeg, png, webp]
+                  rename: safe
+              - name: alt
+                label: Hero image description
+                type: string
+                description: Required when an image is selected.
+                options:
+                  maxlength: 180
+              - name: placeholderMessage
+                label: Placeholder message
+                type: text
+                required: true
+                description: Shown only while no hero image is selected.
+                options:
+                  maxlength: 280
+      - name: capabilityStrip
+        label: Scrolling capability strip
+        type: object
+        required: true
+        fields:
+          - name: item1
+            label: Label 1
+            type: string
+            required: true
+            options:
+              maxlength: 60
+          - name: item2
+            label: Label 2
+            type: string
+            required: true
+            options:
+              maxlength: 60
+          - name: item3
+            label: Label 3
+            type: string
+            required: true
+            options:
+              maxlength: 60
+          - name: item4
+            label: Label 4
+            type: string
+            required: true
+            options:
+              maxlength: 60
+      - name: work
+        label: Selected work
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Small section label
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: heading
+            component: heading
+            label: Section heading
+            required: true
+          - name: introduction
+            label: Section introduction
+            type: text
+            required: true
+            options:
+              maxlength: 400
+          - name: project1
+            component: project
+            label: Project 1
+            required: true
+          - name: project2
+            component: project
+            label: Project 2
+            required: true
+          - name: project3
+            component: project
+            label: Project 3
+            required: true
+      - name: capabilities
+        label: What I bring
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Small section label
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: heading
+            component: heading
+            label: Section heading
+            required: true
+          - name: introduction
+            label: Section introduction
+            type: text
+            required: true
+            options:
+              maxlength: 400
+          - name: item1
+            component: capability
+            label: Capability 1
+            required: true
+          - name: item2
+            component: capability
+            label: Capability 2
+            required: true
+          - name: item3
+            component: capability
+            label: Capability 3
+            required: true
+          - name: item4
+            component: capability
+            label: Capability 4
+            required: true
+      - name: about
+        label: About section
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Small section label
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: heading
+            component: heading
+            label: Section heading
+            required: true
+          - name: paragraph1
+            label: First paragraph
+            type: text
+            required: true
+            options:
+              maxlength: 900
+          - name: paragraph2
+            label: Second paragraph
+            type: text
+            required: true
+            options:
+              maxlength: 900
+          - name: portrait
+            label: Portrait
+            type: object
+            required: true
+            fields:
+              - name: image
+                label: Portrait image
+                type: image
+                description: Optional. Upload only a portrait approved for public display.
+                options:
+                  media: images
+                  extensions: [jpg, jpeg, png, webp]
+                  rename: safe
+              - name: alt
+                label: Portrait description
+                type: string
+                description: Required when a portrait is selected.
+                options:
+                  maxlength: 180
+          - name: resumeActionLabel
+            label: Résumé link text
+            type: string
+            required: true
+            options:
+              maxlength: 100
+      - name: testimonial
+        label: Testimonial
+        type: object
+        required: true
+        description: Use only a real recommendation approved for public display.
+        fields:
+          - name: eyebrow
+            label: Small section label
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: quote
+            label: Recommendation
+            type: text
+            required: true
+            options:
+              maxlength: 700
+          - name: personName
+            label: Person's name
+            type: string
+            required: true
+            options:
+              maxlength: 120
+          - name: personRole
+            label: Person's role
+            type: string
+            required: true
+            options:
+              maxlength: 120
+          - name: personCompany
+            label: Company
+            type: string
+            required: true
+            options:
+              maxlength: 120
+      - name: resume
+        label: Résumé section
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Small section label
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: heading
+            label: Heading
+            type: string
+            required: true
+            options:
+              maxlength: 140
+          - name: introduction
+            label: Introduction
+            type: text
+            required: true
+            options:
+              maxlength: 400
+          - name: actionLabel
+            label: Button text
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: file
+            label: Public résumé PDF
+            type: file
+            description: Optional. Everything uploaded here becomes publicly accessible.
+            options:
+              media: documents
+              extensions: [pdf]
+              rename: safe
+      - name: contact
+        label: Contact section
+        type: object
+        required: true
+        fields:
+          - name: eyebrow
+            label: Small section label
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: heading
+            component: heading
+            label: Section heading
+            required: true
+          - name: introduction
+            label: Introduction
+            type: text
+            required: true
+            options:
+              maxlength: 400
+          - name: email
+            label: Public email address
+            type: string
+            description: Leave empty until Johanna confirms the address she wants to publish.
+            options:
+              maxlength: 254
+          - name: linkedInUrl
+            label: Public LinkedIn address
+            type: string
+            description: Optional. Use the complete public address beginning with https://.
+            options:
+              maxlength: 500

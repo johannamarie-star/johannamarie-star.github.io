@@ -8,7 +8,7 @@ Personal portfolio website for **Johanna Marie**, a Marketing Specialist / Conte
 
 The site is published as a work in progress. Some résumé, project, contact, portrait, and testimonial content remains as editable placeholder content until Johanna supplies the final details.
 
-A restricted, form-based content editor is planned but is not active yet. Until it is implemented and tested, visible content remains in `app/page.tsx`.
+A restricted, form-based content editor is configured in the repository. Editable values now live in `content/site.json`; hosted Pages CMS authorization and final interface verification are the remaining activation steps.
 
 ## Technology
 

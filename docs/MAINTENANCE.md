@@ -2,14 +2,13 @@
 
 ## Current transition state
 
-The public site is operational, but the content editor is not implemented yet. Visible homepage content currently lives in `app/page.tsx`. Do not tell Johanna that the form editor is available until the end-to-end workflow has been tested.
+The public site and repository-side editor integration are operational. Hosted Pages CMS authorization and final interface verification are still pending, so do not tell Johanna that routine form editing is available yet.
 
-After implementation:
-
-- Johanna-facing content will live in `content/site.json`.
-- Editor-managed public assets will live in `public/uploads/`.
-- `.pages.yml` will define the allowed editing interface.
-- `app/` will continue to own layout, rendering, and visual behavior.
+- Johanna-facing content lives in `content/site.json`.
+- Editor-managed public assets live in `public/uploads/`.
+- `.pages.yml` defines the allowed editing interface.
+- `scripts/validate-content.mjs` blocks invalid structure, unsafe paths, malformed links, missing alternative text, and missing referenced files.
+- `app/` continues to own layout, rendering, and visual behavior.
 
 ## Local development
 
@@ -35,9 +34,19 @@ Run this before publishing a technical change:
 npm run check
 ```
 
-The current check includes ESLint and a production static build. When content validation is added, it must be included in the same command and in GitHub Actions.
+The check includes ESLint, content and referenced-file validation, and a production static build. GitHub Actions uses the same validated build path.
 
 For visible or interactive changes, also inspect the page at desktop and mobile sizes and check the browser console. Confirm that navigation anchors, mail links, résumé behavior, image loading, and external links work as intended.
+
+## Git change discipline
+
+1. Inspect `git status` before editing and preserve unrelated work.
+2. Complete one coherent requested change.
+3. Run the checks appropriate to that change.
+4. Commit only the files belonging to the task with a descriptive message.
+5. Push after verification when the change is intended for the shared repository or live site.
+
+Do not create commits for read-only investigations or known failures. Do not include secrets, generated output, unrelated pre-existing changes, or unfinished experiments. Routine Pages CMS saves are committed automatically and do not require Johanna to use Git commands.
 
 ## Safe change boundaries
 

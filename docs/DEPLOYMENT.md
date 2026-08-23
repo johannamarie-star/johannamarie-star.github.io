@@ -28,7 +28,7 @@ The workflow can also be started manually through `workflow_dispatch`.
 
 The deploy job depends on the build job. A lint or build failure prevents a new Pages artifact from being deployed, leaving the previous successful website available.
 
-The planned content validator must run before or as part of the build so invalid editor content cannot reach the deploy job.
+The content validator runs as part of `npm run build`, so invalid editor content or a missing referenced upload cannot reach the deploy job.
 
 ## Local pre-push verification
 
@@ -39,7 +39,7 @@ npm ci
 npm run check
 ```
 
-`npm run check` currently runs lint and the production static build. After the editor implementation it must also validate `content/site.json`.
+`npm run check` runs lint, validates `content/site.json` and its referenced uploads, and creates the production static build.
 
 ## Recovery
 
@@ -55,6 +55,6 @@ For a failed workflow:
 
 Do not add a second host as a workaround for a normal build failure.
 
-## Future editor publishing
+## Editor publishing
 
-Pages CMS will write content or public media changes to the same repository. Those changes will use this existing GitHub Pages pipeline; the editor does not need its own website deployment process.
+The repository is configured for Pages CMS to write content or public media changes to the same repository. After Johanna authorizes the hosted editor, those changes will use this existing GitHub Pages pipeline; the editor does not need its own website deployment process.
