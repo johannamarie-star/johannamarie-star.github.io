@@ -158,6 +158,7 @@ Before deployment, validation confirms:
 
 - The content file is valid JSON with the expected top-level shape.
 - Required text values are present and within practical length limits.
+- Optional text, media, link, and nested image values may be empty or omitted because Pages CMS removes empty optional fields when it saves.
 - The fixed `project1` through `project3` and `item1` through `item4` slots are present; the editor cannot add, delete, or reorder them.
 - URLs use an allowed public protocol and contact email has a valid shape when provided.
 - Asset paths are empty or contained under `/uploads/` as appropriate.

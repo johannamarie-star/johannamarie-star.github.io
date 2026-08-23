@@ -8,7 +8,7 @@ Personal portfolio website for **Johanna Marie**, a Marketing Specialist / Conte
 
 The site is published as a work in progress. Some résumé, project, contact, portrait, and testimonial content remains as editable placeholder content until Johanna supplies the final details.
 
-A restricted, form-based content editor is configured in the repository. Editable values now live in `content/site.json`; hosted Pages CMS authorization and final interface verification are the remaining activation steps.
+A restricted, form-based Pages CMS editor is connected and verified. Editable values live in `content/site.json`, and every save creates a recoverable GitHub commit before the validated GitHub Pages deployment runs.
 
 ## Technology
 
@@ -40,6 +40,7 @@ Every update pushed to `main` is checked and published automatically.
 - [Project context](docs/PROJECT.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Content model](docs/CONTENT-MODEL.md)
+- [Editor guide](docs/EDITOR-GUIDE.md)
 - [Technical maintenance](docs/MAINTENANCE.md)
 - [Deployment](docs/DEPLOYMENT.md)
 - [Decision record](docs/DECISIONS.md)

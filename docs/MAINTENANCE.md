@@ -1,8 +1,8 @@
 # Maintenance
 
-## Current transition state
+## Current operational state
 
-The public site and repository-side editor integration are operational. Hosted Pages CMS authorization and final interface verification are still pending, so do not tell Johanna that routine form editing is available yet.
+The public site and hosted Pages CMS editor are operational and verified. Johanna can make routine form-based content and media edits without using Git commands.
 
 - Johanna-facing content lives in `content/site.json`.
 - Editor-managed public assets live in `public/uploads/`.
@@ -52,7 +52,7 @@ Do not create commits for read-only investigations or known failures. Do not inc
 
 ### Content-only changes
 
-Once the editor exists, routine changes should update only `content/site.json` and approved files under `public/uploads/`. They should not require component or CSS edits.
+Routine editor changes should update only `content/site.json` and approved files under `public/uploads/`. They should not require component or CSS edits. Empty optional editor values may be omitted from JSON and must remain safe for validation and rendering.
 
 ### Structural changes
 
@@ -82,8 +82,8 @@ Do not migrate away from Next.js merely because a simpler stack could render the
 
 - Johanna uses her own GitHub sign-in and controls repository-connected applications.
 - Do not request or store her password, recovery code, session cookie, or token.
-- Scope the Pages CMS GitHub App to this repository only during setup.
-- Xavier does not need editor ownership or shared credentials to maintain the code.
+- Keep the Pages CMS GitHub App scoped to this repository only.
+- Xavier uses the separate `Avaxerrr` collaborator account when repository or editor access is needed; he never uses Johanna's credentials.
 
 ## Dependency and workflow maintenance
 
@@ -102,5 +102,5 @@ Update documentation as part of the same change when facts move from planned to 
 - `docs/CONTENT-MODEL.md` exact field names and validation
 - `docs/DECISIONS.md` only if a decision changes
 - `docs/DEPLOYMENT.md` validation order
-- This transition section
-- A new `docs/EDITOR-GUIDE.md` based on verified behavior
+- This operational-state section
+- `docs/EDITOR-GUIDE.md` whenever the verified editor experience changes

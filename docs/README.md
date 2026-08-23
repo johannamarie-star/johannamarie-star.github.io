@@ -6,14 +6,11 @@ These documents separate stable project rules from implementation details. The l
 
 - [Project](PROJECT.md) — purpose, audience, brand, ownership, current page, and content status
 - [Architecture](ARCHITECTURE.md) — static-site architecture and the approved editor boundary
-- [Content model](CONTENT-MODEL.md) — proposed version-one content contract for the editor
+- [Content model](CONTENT-MODEL.md) — implemented version-one content contract for the editor
+- [Editor guide](EDITOR-GUIDE.md) — Johanna's verified sign-in, editing, saving, and upload workflow
 - [Decisions](DECISIONS.md) — accepted architectural and product decisions
 - [Deployment](DEPLOYMENT.md) — GitHub Pages publishing and recovery behavior
 - [Maintenance](MAINTENANCE.md) — local development and safe change practices
-
-## Planned document
-
-`EDITOR-GUIDE.md` will be created after the editor has been implemented and tested. It must describe the real interface Johanna will use rather than an assumed workflow.
 
 ## Source-of-truth boundaries
 

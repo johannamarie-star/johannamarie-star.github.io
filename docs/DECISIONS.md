@@ -31,7 +31,7 @@ This document records decisions that should influence future work. It is not a c
 
 ## D005 — Use hosted Pages CMS as the editing surface
 
-- **Status:** Repository integration implemented; hosted authorization pending
+- **Status:** Implemented and verified
 - **Decision:** Use the hosted Pages CMS interface as a form-based layer over the GitHub repository. Do not build or embed a custom editor application.
 - **Reason:** A custom editor would require additional hosting, authentication, security, and maintenance. Pages CMS provides structured file and media editing while GitHub remains the content source of truth.
 - **Consequence:** The Pages CMS GitHub App must be restricted to Johanna's portfolio repository. The public site must not depend on Pages CMS at runtime.
@@ -39,9 +39,9 @@ This document records decisions that should influence future work. It is not a c
 ## D006 — Johanna owns and controls editor access
 
 - **Status:** Accepted
-- **Decision:** Johanna authorizes and uses the editor through her own GitHub account. Xavier may build and maintain the technical integration when asked but does not own the editor, content, or credentials and does not need permanent editor access.
+- **Decision:** Johanna authorizes and owns the editor through her own GitHub account. Xavier may use his separate `Avaxerrr` GitHub identity as an invited repository collaborator and editor when maintaining or testing the project, but does not own the editor, content, or credentials.
 - **Reason:** The tool is being created for Johanna's independent use, not for remote control by the maintainer.
-- **Consequence:** Never share account credentials. Any future collaborator access must use separate identities and least privilege.
+- **Consequence:** Never share account credentials. Keep editor-capable repository access limited to Johanna and `Avaxerrr`, and remove maintainer access if it is no longer needed.
 
 ## D007 — Keep version one intentionally small
 

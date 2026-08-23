@@ -8,9 +8,10 @@ Johanna Marie's portfolio is a professional hub she can share with potential emp
 
 - **Owner and content editor:** Johanna Marie
 - **Optional technical maintainer:** Xavier
+- **Maintainer GitHub account:** `Avaxerrr` (invitation pending acceptance)
 - **Repository owner:** `johannamarie-star`
 
-Johanna owns the repository, public website, content, uploaded assets, and authorization for any editing service. The maintainer may build or change the technical system when asked but does not own Johanna's editor or content and does not require permanent editor access.
+Johanna owns the repository, public website, content, uploaded assets, and authorization for any editing service. The maintainer may build, test, and change the technical system through his separate invited account when asked, but does not own Johanna's editor or content.
 
 ## Confirmed brand and audience
 
@@ -93,4 +94,4 @@ No stock photos, client logos, real project thumbnails, or portrait photographs 
 - `public/` — public static assets
 - `.github/workflows/pages.yml` — validation, build, and GitHub Pages publishing
 
-Editable values are stored in `content/site.json`, and editor-managed assets are restricted to `public/uploads/`. `app/` continues to own presentation and structure. The hosted editor still requires Johanna's repository authorization before routine editing begins.
+Editable values are stored in `content/site.json`, and editor-managed assets are restricted to `public/uploads/`. `app/` continues to own presentation and structure. Pages CMS is authorized only for this repository and its save-to-deployment workflow has been verified.

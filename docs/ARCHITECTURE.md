@@ -2,7 +2,7 @@
 
 ## Status
 
-The public website, file-based content contract, Pages CMS configuration, validation, and GitHub Pages deployment are implemented. Authorization of the hosted Pages CMS GitHub App and final verification of Johanna's editor interface remain pending.
+The public website, file-based content contract, Pages CMS configuration, validation, and GitHub Pages deployment are implemented and verified end to end. The Pages CMS GitHub App is installed for only this repository.
 
 ## Current system
 
@@ -51,13 +51,13 @@ Pages CMS is an external editing surface, not a runtime dependency of the portfo
 
 | Area | Owner/controller | Access boundary |
 | --- | --- | --- |
-| GitHub account and repository | Johanna | Her GitHub credentials only |
+| GitHub account and repository | Johanna | Her GitHub credentials; separate `Avaxerrr` collaborator invitation pending |
 | Pages CMS authorization | Johanna | GitHub App restricted to this repository |
 | Editable content and uploads | Johanna | Fields and media paths exposed by `.pages.yml` |
 | Components, layout, CSS, and build configuration | Technical maintenance scope | Not exposed in the editor |
 | Public website | Johanna | Readable by anyone |
 
-Xavier may maintain the technical code when requested without owning the content system or using Johanna's credentials. If remote repository collaboration is added later, each person must use a separate GitHub account.
+Xavier may maintain the technical code through his separate `Avaxerrr` account after accepting Johanna's GitHub invitation. This access does not transfer ownership of the repository, content, editor, or credentials.
 
 ## Content and presentation contract
 
@@ -93,7 +93,7 @@ Version one will not include:
 
 ## Save and deployment behavior
 
-The intended initial workflow is a direct content save to the default branch:
+The current workflow is a direct content save to the default branch:
 
 1. Johanna edits and saves a configured field or upload.
 2. Pages CMS records the file change in GitHub history.
@@ -111,9 +111,12 @@ The previously deployed website remains available during a build. If validation 
 - If a content edit is undesirable, Git history provides a recovery path.
 - If the framework changes later, retaining the content contract allows the editor configuration and stored content to remain useful.
 
-## Remaining activation sequence
+## Activation verification
 
-1. Publish the repository-side editor integration and confirm GitHub Pages succeeds.
-2. Install and authorize Pages CMS only for Johanna's portfolio repository.
-3. Verify the real form, text fields, image picker, résumé picker, repository scope, and save messaging.
-4. Write `docs/EDITOR-GUIDE.md` from the verified interface and mark activation complete.
+Completed on August 24, 2026:
+
+1. Installed Pages CMS with **Only select repositories** enabled and this repository as the sole selection.
+2. Verified the real content form, image controls, résumé controls, repository scope, and save message.
+3. Saved a temporary metadata-only change and confirmed that Pages CMS created a GitHub commit.
+4. Corrected validation so Pages CMS may safely omit empty optional fields.
+5. Restored the original metadata through Pages CMS and confirmed a successful GitHub Pages deployment and live response.

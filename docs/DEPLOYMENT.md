@@ -57,4 +57,6 @@ Do not add a second host as a workaround for a normal build failure.
 
 ## Editor publishing
 
-The repository is configured for Pages CMS to write content or public media changes to the same repository. After Johanna authorizes the hosted editor, those changes will use this existing GitHub Pages pipeline; the editor does not need its own website deployment process.
+Pages CMS is installed for only this repository and writes content or public media changes to `main`. Each save creates a GitHub commit and starts this existing GitHub Pages pipeline; the editor does not have a separate deployment process.
+
+The workflow was verified end to end on August 24, 2026 with a temporary metadata save followed by a Pages CMS restore. Both the repaired content model and the final restored revision completed successful static deployments.
